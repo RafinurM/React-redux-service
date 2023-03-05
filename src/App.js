@@ -20,7 +20,7 @@ function App() {
         <button type='submit'>Save</button>
       </form>
       <ul>
-        {data.map(item => <li>{item.name} {item.price}<button>Edit</button><button>Delete</button></li>)}
+        {data.map(item => <li>{item.name} {item.price}<button>&#9998;</button><button>&times;</button></li>)}
       </ul>
     </>
   );
