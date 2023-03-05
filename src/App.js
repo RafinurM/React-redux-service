@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react'
+
 
 function App() {
+
+  let [data, setData] = useState([])
+
+  let submitForm = (event) => {
+    event.preventDefault();
+    setData([...data, { name: event.target.name.value, price: event.target.price.value }])
+    event.target.name.value = '';
+    event.target.price.value = '';  
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <form onSubmit={submitForm}>
+        <input name='name' type='text' required/>
+        <input name='price' type='number' required/>
+        <button type='submit'>Save</button>
+      </form>
+      <ul>
+        {data.map(item => <li>{item.name} {item.price}<button>Edit</button><button>Delete</button></li>)}
+      </ul>
+    </>
   );
 }
 
