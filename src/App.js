@@ -1,5 +1,7 @@
 import './App.css';
 import { useState } from 'react'
+import Form from './components/Form';
+import List from './components/List';
 
 
 function App() {
@@ -8,20 +10,23 @@ function App() {
 
   let submitForm = (event) => {
     event.preventDefault();
-    setData([...data, { name: event.target.name.value, price: event.target.price.value }])
+    setData([...data, { name: event.target.name.value, price: event.target.price.value, id: new Date().getMilliseconds() }])
     event.target.name.value = '';
     event.target.price.value = '';  
   }
+
+  let removeItem = (itemID) => {
+    setData(data.filter(item => item.id !== itemID))       
+  }
+
+  let editItem = (name, price) => {
+    console.log(name, price)
+  }
+   
   return (
     <>
-      <form onSubmit={submitForm}>
-        <input name='name' type='text' required/>
-        <input name='price' type='number' required/>
-        <button type='submit'>Save</button>
-      </form>
-      <ul>
-        {data.map(item => <li>{item.name} {item.price}<button>&#9998;</button><button>&times;</button></li>)}
-      </ul>
+      <Form submitForm={submitForm} />
+      <List data={data} removeItem={removeItem} editItem={editItem}/>
     </>
   );
 }
